@@ -19,7 +19,9 @@ public class Goodin {
 	@NotNull
 	private String type;
 	private int qty;
-	
+	public Goodin() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getId() {
 		return id;
 	}

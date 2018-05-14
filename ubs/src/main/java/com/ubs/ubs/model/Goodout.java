@@ -19,7 +19,9 @@ public class Goodout {
 	@NotNull
 	private String type;
 	private int qty;
-	
+	public Goodout() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getId() {
 		return id;
 	}

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.ubs.ubs.model.Product;
+import com.ubs.ubs.repository.GoodinRepository;
 import com.ubs.ubs.repository.ProductRepository;
 
 @RestController
@@ -16,6 +17,8 @@ public class ProductController {
 	
 	@Autowired
 	ProductRepository productRepository;
+	@Autowired
+	GoodinRepository goodinRepository;
 	
 	@GetMapping(value = "/findProduct",
 				params = {"id"})
@@ -25,6 +28,7 @@ public class ProductController {
 	
 	@PostMapping(value = "/insertProduct")
 	public  ResponseEntity<Product> setProduct(@RequestBody Product p) {
+		
 		productRepository.save(p);
 		return new ResponseEntity<Product>(p,HttpStatus.OK);
 	}

@@ -1,17 +1,19 @@
 package com.ubs.ubs.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
 
 @Entity
-@Table(name = "Product")
 public class Product {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "name")
 	private String name;
 	@ManyToMany( fetch = FetchType.LAZY,
 		     cascade = { 
@@ -21,7 +23,8 @@ public class Product {
 	@JoinTable( name = "Inventory",
 				joinColumns  = @JoinColumn ( name = "p_id" ),
 				inverseJoinColumns = { @JoinColumn( name = "w_id ")} )
-	private List<Warehouse> warehouses = new ArrayList<Warehouse>();
+	private Set<Warehouse> warehouses = new HashSet<Warehouse>();
+	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
@@ -37,10 +40,10 @@ public class Product {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<Warehouse> getWarehouses() {
+	public Set<Warehouse> getWarehouses() {
 		return warehouses;
 	}
-	public void setWarehouses(List<Warehouse> warehouses) {
+	public void setWarehouses(Set<Warehouse> warehouses) {
 		this.warehouses = warehouses;
 	}
 	

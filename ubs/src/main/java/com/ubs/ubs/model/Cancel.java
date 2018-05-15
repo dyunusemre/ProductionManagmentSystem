@@ -3,9 +3,10 @@ package com.ubs.ubs.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "`Cancel`")
 public class Cancel {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(name = "t_id")
 	private int transactionId;

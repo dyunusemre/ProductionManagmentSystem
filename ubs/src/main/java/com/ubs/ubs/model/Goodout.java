@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 public class Goodout {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotNull
 	@Column(name = "p_id")
@@ -17,7 +17,9 @@ public class Goodout {
 	@Column(name = "w_id")
 	private int warehouseId;
 	@NotNull
+	@Column(name = "type")
 	private String type;
+	@Column(name = "qty")
 	private int qty;
 	public Goodout() {
 		// TODO Auto-generated constructor stub

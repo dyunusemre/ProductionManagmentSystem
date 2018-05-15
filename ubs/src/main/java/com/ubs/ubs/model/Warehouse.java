@@ -7,20 +7,20 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "Warehouse")
 public class Warehouse {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotNull
+	@Column(name = "name")
 	private String name;
 	@NotNull
+	@Column(name = "city")
 	private String city;
 	
-	@ManyToMany( fetch = FetchType.LAZY,
+	@ManyToMany( 
         	 cascade = {
-               CascadeType.PERSIST,
-               CascadeType.MERGE
+               CascadeType.ALL
             },
             mappedBy = "warehouses" )
 	private List<Product> products = new ArrayList<Product>();

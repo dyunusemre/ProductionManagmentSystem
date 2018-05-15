@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Transfer {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(name = "in_w_id")
 	private int inWarehouseId;
@@ -13,6 +13,7 @@ public class Transfer {
 	private int outWarehouseId;
 	@Column(name = "p_id")
 	private int productId;
+	@Column(name = "qty")
 	private int qty;
 	
 	public Transfer() {

@@ -8,5 +8,5 @@ import com.ubs.ubs.model.Product;
 
 @Repository
 public interface ProductRepository extends CrudRepository<Product,Integer> {
-
+	Product findById(int i);
 }

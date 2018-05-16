@@ -20,12 +20,11 @@ public class ProductController {
 	
 	@Autowired
 	ProductRepository productRepository;
-	@Autowired
-	GoodinRepository goodinRepository;
+	
 	
 	@GetMapping(value = "/findProduct",
 				params = {"id"})
-	public Optional<Product> getProductById(@RequestParam("id") int id) {
+	public Product getProductById(@RequestParam("id") int id) {
 		return productRepository.findById(id);
 	}
 	

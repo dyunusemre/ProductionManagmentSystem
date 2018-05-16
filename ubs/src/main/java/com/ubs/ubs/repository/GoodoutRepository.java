@@ -1,9 +1,12 @@
 package com.ubs.ubs.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.ubs.ubs.model.Goodout;
 
-public interface GoodoutRepository extends JpaRepository<Goodout,Long> {
-
+@Repository
+public interface GoodoutRepository extends CrudRepository<Goodout,Long> {
+	Goodout findById(int i);
 }

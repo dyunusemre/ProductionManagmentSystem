@@ -1,13 +1,16 @@
 package com.ubs.ubs.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Warehouse {
+public class Warehouse implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -18,12 +21,12 @@ public class Warehouse {
 	@Column(name = "city")
 	private String city;
 	
-	@ManyToMany( 
+	@OneToMany( 
         	 cascade = {
                CascadeType.ALL
             },
-            mappedBy = "warehouses" )
-	private List<Product> products = new ArrayList<Product>();
+            mappedBy = "product" )
+	private Set<Inventory> inventory = new HashSet<Inventory>();
 	
 	public Warehouse() {
 		// TODO Auto-generated constructor stub
@@ -45,5 +48,11 @@ public class Warehouse {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Set<Inventory> getInventory() {
+		return inventory;
+	}
+	public void setInventory(Set<Inventory> inventory) {
+		this.inventory = inventory;
 	}
 }

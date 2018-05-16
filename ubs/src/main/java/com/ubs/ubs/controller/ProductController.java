@@ -2,6 +2,9 @@ package com.ubs.ubs.controller;
 
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

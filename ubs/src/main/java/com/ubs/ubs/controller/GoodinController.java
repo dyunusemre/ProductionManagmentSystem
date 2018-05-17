@@ -42,12 +42,17 @@ public class GoodinController {
 		Product p = productRepository.findById(g.getP_id());
 		Warehouse w = warehouseRepository.findById(g.getW_id());
 		System.out.println(org.hibernate.Version.getVersionString());
-		if(inventoryRepository.existsById(new InventoryId(p,w))) {
-			Inventory i2 = inventoryRepository.getOne(new InventoryId(p,w));			
+		if(productRepository.existsById(p.getId()) && warehouseRepository.existsById(w.getId())) {
+						
 			Inventory i = new Inventory();
 			i.setProduct(p);
 			i.setWarehouse(w);
-			i.setQty(i2.getQty() + g.getQty());		
+			if(inventoryRepository.existsById(new InventoryId(p,w))) {
+				Inventory i2 = inventoryRepository.getOne(new InventoryId(p,w));
+				i.setQty(i2.getQty() + g.getQty());		
+			}
+			else
+				i.setQty(g.getQty());
 			inventoryRepository.save(i);
 			goodinRepository.save(g);		
 			return new ResponseEntity<Goodin>(g,HttpStatus.OK);

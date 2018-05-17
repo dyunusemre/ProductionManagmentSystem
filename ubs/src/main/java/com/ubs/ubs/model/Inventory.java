@@ -18,6 +18,15 @@ public class Inventory implements Serializable{
 	private InventoryId primaryKey = new InventoryId();
 	public int qty;
 	
+	public Inventory() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Inventory(InventoryId pk, int qty) {
+		this.primaryKey = pk;
+		this.qty = qty;
+	}
+	
 	@EmbeddedId
 	public InventoryId getPrimaryKey() {
 		return primaryKey;
@@ -45,5 +54,16 @@ public class Inventory implements Serializable{
 	}
 	public void setQty(int qty) {
 		this.qty = qty;
+	}
+	public Boolean decreaseQty(int x) {
+		if(x<=this.qty) {
+			this.setQty(this.qty-x);
+			return true;
+		}
+		else
+			return false;
+	}
+	public void increaseQty(int x) {
+		this.setQty(this.qty + x);
 	}
 }

@@ -8,6 +8,6 @@ import com.ubs.ubs.model.Transfer;
 import com.ubs.ubs.model.Warehouse;
 
 @Repository
-public interface TransferRepository extends CrudRepository<Transfer,Integer>{
+public interface TransferRepository extends JpaRepository<Transfer,Integer>{
 	Transfer findById(int i);
 }

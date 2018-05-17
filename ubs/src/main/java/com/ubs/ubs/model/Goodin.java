@@ -19,6 +19,14 @@ public class Goodin {
 	private int p_id;
 	@Column(name = "w_id")
 	private int w_id;
+	
+	public Goodin(String type, int qty, int p_id, int w_id) {
+		this.type = type;
+		this.qty = qty;
+		this.p_id = p_id;
+		this.w_id = w_id;
+	}
+	
 	public int getP_id() {
 		return p_id;
 	}

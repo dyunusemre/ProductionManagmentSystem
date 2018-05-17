@@ -3,7 +3,7 @@ package com.ubs.ubs.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "`Cancel`")
+@Table(name = "Cancel")
 public class Cancel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

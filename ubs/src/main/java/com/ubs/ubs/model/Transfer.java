@@ -3,6 +3,7 @@ package com.ubs.ubs.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Transfer")
 public class Transfer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

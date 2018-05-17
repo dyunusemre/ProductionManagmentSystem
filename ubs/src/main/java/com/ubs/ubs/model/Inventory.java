@@ -6,30 +6,40 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Inventory")
+@AssociationOverrides({
+	@AssociationOverride(name = "primaryKey.product",
+	        joinColumns = @JoinColumn(
+	        		foreignKey = @ForeignKey(name = "FK_p_id"), name = "p_id", referencedColumnName = "id")),
+	@AssociationOverride(name = "primaryKey.warehouse",
+	        joinColumns = @JoinColumn(
+	        		foreignKey = @ForeignKey(name = "FK_w_id"), name = "w_id", referencedColumnName = "id"))
+})
 public class Inventory implements Serializable{
-	private Product product;
-	private Warehouse warehouse;
-	@Column(name = "qty")
-	private int qty;
+	private InventoryId primaryKey = new InventoryId();
+	public int qty;
 	
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "p_id")
+	@EmbeddedId
+	public InventoryId getPrimaryKey() {
+		return primaryKey;
+	}
+	public void setPrimaryKey(InventoryId primaryKey) {
+		this.primaryKey = primaryKey;
+	}
+	@Transient
 	public Product getProduct() {
-		return product;
+		return getPrimaryKey().getProduct();
 	}
 	public void setProduct(Product product) {
-		this.product = product;
+		getPrimaryKey().setProduct(product);
 	}
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "w_id")
+	@Transient
 	public Warehouse getWarehouse() {
-		return warehouse;
+		return getPrimaryKey().getWarehouse();
 	}
 	public void setWarehouse(Warehouse warehouse) {
-		this.warehouse = warehouse;
+		getPrimaryKey().setWarehouse(warehouse);
 	}
+	@Column(name = "qty")
 	public int getQty() {
 		return qty;
 	}

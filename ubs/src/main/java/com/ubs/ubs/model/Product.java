@@ -10,41 +10,50 @@ import javax.persistence.*;
 
 
 @Entity
+@Table(name = "Product")
 public class Product implements Serializable{
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "name")
 	private String name;
-	@OneToMany( fetch = FetchType.LAZY,
-		     cascade = { 
-		    		 CascadeType.PERSIST,
-		    		 CascadeType.MERGE
-		     },
-		     mappedBy = "warehouse")
-	private Set<Inventory> inventory = new HashSet<Inventory>();
+	private Set<Inventory> inventory;
 	
 	public Product() {
-		// TODO Auto-generated constructor stub
+		inventory = new HashSet<>();
 	}
+	public Product(String name) {
+		this.name = name;
+		inventory = new HashSet<>();
+	}
+	public void addWarehouse(Inventory inventory) {
+		this.inventory.add(inventory);
+	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
-	}
-	public String getName() {
-		return name;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
+	@Column(name = "name")
+	public String getName() {
+		return name;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	@OneToMany(mappedBy = "primaryKey.product",
+			cascade = CascadeType.ALL)
 	public Set<Inventory> getInventory() {
 		return inventory;
 	}
 	public void setInventory(Set<Inventory> inventory) {
 		this.inventory = inventory;
 	}
+	public void addInventory(Inventory inventory) {
+		this.inventory.add(inventory);
+	}
+	
+	
 	
 }

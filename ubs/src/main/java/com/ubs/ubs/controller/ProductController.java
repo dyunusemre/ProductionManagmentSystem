@@ -25,7 +25,7 @@ public class ProductController {
 	
 	@GetMapping(value = "/findProduct",
 				params = {"id"})
-	public Optional<Product> getProductById(@RequestParam("id") int id) {
+	public Product getProductById(@RequestParam("id") int id) {
 		return productRepository.findById(id);
 	}
 	

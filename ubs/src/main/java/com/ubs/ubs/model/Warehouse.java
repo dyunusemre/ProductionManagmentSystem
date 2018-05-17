@@ -9,50 +9,50 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+
 @Entity
+@Table(name = "Warehouse")
 public class Warehouse implements Serializable{
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
-	@NotNull
-	@Column(name = "name")
 	private String name;
-	@NotNull
-	@Column(name = "city")
-	private String city;
-	
-	@OneToMany( 
-        	 cascade = {
-               CascadeType.ALL
-            },
-            mappedBy = "product" )
-	private Set<Inventory> inventory = new HashSet<Inventory>();
+	private Set<Inventory> inventory;
 	
 	public Warehouse() {
-		// TODO Auto-generated constructor stub
+		inventory = new HashSet<>();
 	}
-	public String getCity() {
-		return city;
+	public Warehouse(String name) {
+		this.name = name;
+		inventory = new HashSet<>();
 	}
-	public String getName() {
-		return name;
-	}
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
-	}
-	public void setCity(String city) {
-		this.city = city;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
+	@Column(name = "name")
+	public String getName() {
+		return name;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	@OneToMany(mappedBy = "primaryKey.warehouse",
+			cascade = CascadeType.ALL)
 	public Set<Inventory> getInventory() {
 		return inventory;
 	}
 	public void setInventory(Set<Inventory> inventory) {
 		this.inventory = inventory;
+	}
+	public void addInventory(Inventory inventory) {
+		this.inventory.add(inventory);
 	}
 }

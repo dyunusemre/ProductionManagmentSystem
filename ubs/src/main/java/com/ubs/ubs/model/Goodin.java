@@ -11,16 +11,26 @@ public class Goodin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotNull
-	@Column(name = "p_id")
-	private int productId;
-	@NotNull
-	@Column(name = "w_id")
-	private int warehouseId;
-	@NotNull
 	@Column(name = "type")
 	private String type;
 	@Column(name = "qty")
 	private int qty;
+	@Column(name = "p_id")
+	private int p_id;
+	@Column(name = "w_id")
+	private int w_id;
+	public int getP_id() {
+		return p_id;
+	}
+	public void setP_id(int p_id) {
+		this.p_id = p_id;
+	}
+	public int getW_id() {
+		return w_id;
+	}
+	public void setW_id(int w_id) {
+		this.w_id = w_id;
+	}
 	public Goodin() {
 		// TODO Auto-generated constructor stub
 	}
@@ -29,18 +39,6 @@ public class Goodin {
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public int getProductId() {
-		return productId;
-	}
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-	public int getWarehouseId() {
-		return warehouseId;
-	}
-	public void setWarehouseId(int warehouseId) {
-		this.warehouseId = warehouseId;
 	}
 	public String getType() {
 		return type;

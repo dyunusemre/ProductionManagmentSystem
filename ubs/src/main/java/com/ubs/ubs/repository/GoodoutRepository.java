@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.ubs.ubs.model.Goodout;
 
-public interface GoodoutRepository extends JpaRepository<Goodout,Long> {
+public interface GoodoutRepository extends CrudRepository<Goodout,Long> {
 
 }

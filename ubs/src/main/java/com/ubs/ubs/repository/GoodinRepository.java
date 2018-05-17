@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.ubs.ubs.model.Goodin;
 
 @Repository
-public interface GoodinRepository extends JpaRepository<Goodin,Long>{
+public interface GoodinRepository extends CrudRepository<Goodin,Long>{
+	Goodin findById(int i);
 
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.ubs.ubs.model.Warehouse;
 
 @Repository
-public interface WarehouseRepository extends JpaRepository<Warehouse,Integer>{
+public interface WarehouseRepository extends CrudRepository<Warehouse,Integer>{
 	Warehouse findById(int i);
 
 }

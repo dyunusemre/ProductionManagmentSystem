@@ -17,6 +17,7 @@ import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
 import com.ubs.ubs.model.Warehouse;
+import com.ubs.ubs.repository.GoodinRepository;
 import com.ubs.ubs.repository.InventoryRepository;
 import com.ubs.ubs.repository.ProductRepository;
 import com.ubs.ubs.repository.WarehouseRepository;
@@ -32,7 +33,8 @@ public class GoodinController {
 	WarehouseRepository warehouseRepository;
 	@Autowired
 	InventoryRepository inventoryRepository;
-	
+	@Autowired 
+	GoodinRepository goodinRepository;
 	
 	@PostMapping(value = "/insertGoods")
 	public  ResponseEntity<Goodin> setProduct(@RequestBody Goodin g,@RequestParam int p_id,@RequestParam int w_id) {
@@ -46,7 +48,7 @@ public class GoodinController {
 		i.setQty(i2.getQty() + g.getQty());
 		
 		inventoryRepository.save(i);
-		
+		goodinRepository.save(g);
 		return new ResponseEntity<Goodin>(g,HttpStatus.OK);
 	}
 }

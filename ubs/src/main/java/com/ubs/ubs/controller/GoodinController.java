@@ -2,10 +2,13 @@ package com.ubs.ubs.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ubs.ubs.model.Goodin;
+import com.ubs.ubs.model.Goodout;
 import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
@@ -56,5 +60,14 @@ public class GoodinController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 			
+	}
+	@GetMapping(value = "/insertLogs")
+	public ResponseEntity<List<Goodin>> showLogs(){
+		if(goodinRepository.count() == 0) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			
+		}else {
+			return new ResponseEntity<List<Goodin>>(goodinRepository.findAll(),HttpStatus.OK);
+		}
 	}
 }

@@ -1,8 +1,11 @@
 package com.ubs.ubs.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,10 +47,11 @@ public class GoodoutController {
 			Inventory i = new Inventory();
 			i.setProduct(p);
 			i.setWarehouse(w);
-			i.setQty(i2.getQty() - g.getQty());
 			if(i2.getQty() < g.getQty()) {
 				return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
 			}
+			i.setQty(i2.getQty() - g.getQty());
+			
 			inventoryRepository.save(i);
 			goodoutRepository.save(g);		
 			return new ResponseEntity<Goodout>(g,HttpStatus.OK);
@@ -56,5 +60,14 @@ public class GoodoutController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 			
+	}
+	@GetMapping(value = "/deleteLogs")
+	public ResponseEntity<List<Goodout>> showLogs(){
+		if(goodoutRepository.count() == 0) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			
+		}else {
+			return new ResponseEntity<List<Goodout>>(goodoutRepository.findAll(), HttpStatus.OK);
+		}
 	}
 }

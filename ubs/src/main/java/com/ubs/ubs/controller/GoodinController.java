@@ -33,22 +33,28 @@ public class GoodinController {
 	WarehouseRepository warehouseRepository;
 	@Autowired
 	InventoryRepository inventoryRepository;
-	@Autowired 
+	@Autowired
 	GoodinRepository goodinRepository;
 	
+	
 	@PostMapping(value = "/insertGoods")
-	public  ResponseEntity<Goodin> setProduct(@RequestBody Goodin g,@RequestParam int p_id,@RequestParam int w_id) {
-		Product p = productRepository.findById(p_id);
-		Warehouse w = warehouseRepository.findById(w_id);
+	public  ResponseEntity<Goodin> setProduct(@RequestBody Goodin g) {
+		Product p = productRepository.findById(g.getP_id());
+		Warehouse w = warehouseRepository.findById(g.getW_id());
 		System.out.println(org.hibernate.Version.getVersionString());
-		Inventory i2 = inventoryRepository.getOne(new InventoryId(p,w));
-		Inventory i = new Inventory();
-		i.setProduct(p);
-		i.setWarehouse(w);
-		i.setQty(i2.getQty() + g.getQty());
-		
-		inventoryRepository.save(i);
-		goodinRepository.save(g);
-		return new ResponseEntity<Goodin>(g,HttpStatus.OK);
+		if(inventoryRepository.existsById(new InventoryId(p,w))) {
+			Inventory i2 = inventoryRepository.getOne(new InventoryId(p,w));			
+			Inventory i = new Inventory();
+			i.setProduct(p);
+			i.setWarehouse(w);
+			i.setQty(i2.getQty() + g.getQty());		
+			inventoryRepository.save(i);
+			goodinRepository.save(g);		
+			return new ResponseEntity<Goodin>(g,HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+			
 	}
 }

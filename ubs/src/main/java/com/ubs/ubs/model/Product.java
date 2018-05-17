@@ -8,12 +8,15 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "Product")
 public class Product implements Serializable{
 	private int id;
 	private String name;
+	@JsonIgnore
 	private Set<Inventory> inventory;
 	
 	public Product() {

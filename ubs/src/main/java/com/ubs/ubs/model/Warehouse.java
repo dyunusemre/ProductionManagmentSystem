@@ -18,6 +18,7 @@ public class Warehouse implements Serializable{
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
@@ -34,9 +35,16 @@ public class Warehouse implements Serializable{
 	public Warehouse() {
 		inventory = new HashSet<>();
 	}
-	public Warehouse(String name) {
+	public Warehouse(String name, String city) {
 		this.name = name;
+		this.city = city;
 		inventory = new HashSet<>();
+	}
+	
+	public Warehouse(Warehouse w) {
+		this.id = w.getId();
+		this.name = w.getName();
+		this.city = w.getCity();
 	}
 	
 	@Id

@@ -40,5 +40,19 @@ public class WarehouseController {
 	public List<Warehouse> getAllWarehouses(){
 		return warehouseRepository.findAll();
 	}
+	
+	@GetMapping(value="/deleteWarehouse",
+			params = {"id"})
+	public ResponseEntity<Warehouse> deleteWarehouse(@RequestParam("id") int id){
+		if(warehouseRepository.existsById(id)) {
+			Warehouse w = new Warehouse(warehouseRepository.getOne(id));
+			warehouseRepository.deleteById(id);
+			return new ResponseEntity<Warehouse>(w,HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+
+	}
 
 }

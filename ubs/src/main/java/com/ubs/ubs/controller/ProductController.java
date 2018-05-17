@@ -37,4 +37,17 @@ public class ProductController {
 		return productRepository.findAll();
 	}
 	
+	@GetMapping(value="/deleteProduct",
+			params = {"id"})
+	public ResponseEntity<Product> deleteProductId(@RequestParam("id") int id) {
+		if(productRepository.existsById(id)){
+			Product p = new Product(productRepository.getOne(id));
+			productRepository.deleteById(id);
+			return new ResponseEntity<Product>(p, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
 }

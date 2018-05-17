@@ -33,13 +33,7 @@ public class ProductController {
 	}
 	
 	@PostMapping(value = "/insertProduct")
-	public  ResponseEntity<Product> setProduct(@RequestBody Product p, @RequestParam int w_id, @RequestParam int qty) {
-		Warehouse w = warehouseRepository.findById(w_id);
-		Inventory i = new Inventory();
-		i.setWarehouse(w);
-		i.setProduct(p);
-		i.setQty(qty);
-		p.getInventory().add(i);
+	public  ResponseEntity<Product> setProduct(@RequestBody Product p) {
 		productRepository.save(p);
 		return new ResponseEntity<Product>(p,HttpStatus.OK);
 	}

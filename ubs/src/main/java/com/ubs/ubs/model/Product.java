@@ -26,6 +26,10 @@ public class Product implements Serializable{
 		this.name = name;
 		inventory = new HashSet<>();
 	}
+	public Product(Product p) {
+		this.id = p.getId();
+		this.name = p.getName();
+	}
 	public void addWarehouse(Inventory inventory) {
 		this.inventory.add(inventory);
 	}

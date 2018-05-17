@@ -13,6 +13,15 @@ public class InventoryId implements Serializable {
 	private Product product;
 	private Warehouse warehouse;
 	
+	public InventoryId() {
+	
+	}
+	
+	public InventoryId(Product p, Warehouse w) {
+		this.product = p;
+		this.warehouse = w;
+	}
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	public Product getProduct() {
 		return product;

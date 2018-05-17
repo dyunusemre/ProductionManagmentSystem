@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ubs.ubs.model.Goodin;
 import com.ubs.ubs.model.Inventory;
+import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
 import com.ubs.ubs.model.Warehouse;
 import com.ubs.ubs.repository.InventoryRepository;
@@ -38,13 +39,14 @@ public class GoodinController {
 		Product p = productRepository.findById(p_id);
 		Warehouse w = warehouseRepository.findById(w_id);
 		System.out.println(org.hibernate.Version.getVersionString());
+		Inventory i2 = inventoryRepository.getOne(new InventoryId(p,w));
 		Inventory i = new Inventory();
 		i.setProduct(p);
 		i.setWarehouse(w);
-		i.setQty(400);
+		i.setQty(i2.getQty() + g.getQty());
 		
 		inventoryRepository.save(i);
-		System.out.println(i.getQty());
+		
 		return new ResponseEntity<Goodin>(g,HttpStatus.OK);
 	}
 }

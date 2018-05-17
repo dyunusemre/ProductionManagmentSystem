@@ -39,18 +39,23 @@ public class GoodoutController {
 		Product p = productRepository.findById(g.getP_id());
 		Warehouse w = warehouseRepository.findById(g.getW_id());
 		System.out.println(org.hibernate.Version.getVersionString());
-		if(inventoryRepository.existsById(new InventoryId(p,w))) {
-			Inventory i2 = inventoryRepository.getOne(new InventoryId(p,w));			
-			Inventory i = new Inventory();
-			i.setProduct(p);
-			i.setWarehouse(w);
-			i.setQty(i2.getQty() - g.getQty());
-			if(i2.getQty() < g.getQty()) {
-				return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
+		if(productRepository.existsById(p.getId()) && warehouseRepository.existsById(w.getId())) {			
+			if(inventoryRepository.existsById(new InventoryId(p,w))) {
+				Inventory i = new Inventory();
+				i.setProduct(p);
+				i.setWarehouse(w);
+				Inventory i2 = inventoryRepository.getOne(new InventoryId(p,w));				
+				if(i2.getQty() < g.getQty()) {
+					return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
+				}
+				i.setQty(i2.getQty() - g.getQty());
+				inventoryRepository.save(i);
+				goodoutRepository.save(g);		
+				return new ResponseEntity<Goodout>(g,HttpStatus.OK);
 			}
-			inventoryRepository.save(i);
-			goodoutRepository.save(g);		
-			return new ResponseEntity<Goodout>(g,HttpStatus.OK);
+			else{
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}				
 		}
 		else {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -8,23 +8,33 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @Table(name = "Product")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Product implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	@JsonIgnore
-	private Set<Inventory> inventory;
+	private List<Inventory> inventory;
 	
 	public Product() {
-		inventory = new HashSet<>();
+		inventory = new ArrayList<>();
 	}
 	public Product(String name) {
 		this.name = name;
-		inventory = new HashSet<>();
+		inventory = new ArrayList<>();
 	}
 	public Product(Product p) {
 		this.id = p.getId();
@@ -49,12 +59,12 @@ public class Product implements Serializable{
 		this.name = name;
 	}
 	
-	@OneToMany(mappedBy = "primaryKey.product",
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "primaryKey.product",
 			cascade = CascadeType.ALL)
-	public Set<Inventory> getInventory() {
+	public List<Inventory> getInventory() {
 		return inventory;
 	}
-	public void setInventory(Set<Inventory> inventory) {
+	public void setInventory(List<Inventory> inventory) {
 		this.inventory = inventory;
 	}
 	public void addInventory(Inventory inventory) {

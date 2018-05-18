@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.Product;
+import com.ubs.ubs.repository.InventoryRepository;
 import com.ubs.ubs.repository.ProductRepository;
 import com.ubs.ubs.repository.WarehouseRepository;
 
@@ -19,6 +21,9 @@ public class ProductController {
 	ProductRepository productRepository;
 	@Autowired 
 	WarehouseRepository warehouseRepository;
+	
+	@Autowired
+	InventoryRepository inventoryRepository;
 	
 	@GetMapping(value = "/findProduct",
 				params = {"id"})
@@ -32,7 +37,7 @@ public class ProductController {
 		return new ResponseEntity<Product>(p,HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/getAllProducts")
+	@GetMapping(value="/getAllProducts")
 	public List<Product> getAllProducts() {
 		return productRepository.findAll();
 	}
@@ -49,5 +54,7 @@ public class ProductController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
+
+	
 	
 }

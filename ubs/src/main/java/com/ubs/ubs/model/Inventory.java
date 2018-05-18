@@ -4,17 +4,25 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "Inventory")
 @AssociationOverrides({
 	@AssociationOverride(name = "primaryKey.product",
-	        joinColumns = @JoinColumn(
-	        		foreignKey = @ForeignKey(name = "FK_p_id"), name = "p_id", referencedColumnName = "id")),
+						joinColumns = @JoinColumn(
+							     name = "p_id", referencedColumnName = "id")),
 	@AssociationOverride(name = "primaryKey.warehouse",
-	        joinColumns = @JoinColumn(
-	        		foreignKey = @ForeignKey(name = "FK_w_id"), name = "w_id", referencedColumnName = "id"))
+	        			joinColumns = @JoinColumn(
+	        					name = "w_id", referencedColumnName = "id"))
 })
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="primaryKey")
 public class Inventory implements Serializable{
+	/**
+	 *  
+	 */
+	private static final long serialVersionUID = 1L;
 	private InventoryId primaryKey = new InventoryId();
 	public int qty;
 	

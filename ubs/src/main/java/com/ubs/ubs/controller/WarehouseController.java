@@ -36,7 +36,7 @@ public class WarehouseController {
 		return new ResponseEntity<Warehouse>(w,HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/getAllWarehouses")
+	@GetMapping(value="/getAllWarehouses")
 	public List<Warehouse> getAllWarehouses(){
 		return warehouseRepository.findAll();
 	}

@@ -36,7 +36,7 @@ public class WarehouseController {
 		warehouseRepository.save(w);
 		return new ResponseEntity<Warehouse>(w,HttpStatus.OK);
 	}
-	@CrossOrigin(origins = "http://165.227.168.223:8080")
+	@CrossOrigin
 	@GetMapping(value="/getAllWarehouses")
 	public List<Warehouse> getAllWarehouses(){
 		return warehouseRepository.findAll();

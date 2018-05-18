@@ -4,11 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Embeddable
 public class InventoryId implements Serializable {
@@ -18,7 +13,6 @@ public class InventoryId implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Product product;
-	@JsonIgnore
 	private Warehouse warehouse;
 	
 	public InventoryId() {

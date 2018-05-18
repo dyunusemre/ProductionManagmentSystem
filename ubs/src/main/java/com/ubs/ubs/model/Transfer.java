@@ -16,9 +16,18 @@ public class Transfer {
 	private int productId;
 	@Column(name = "qty")
 	private int qty;
+	@Column(name = "type")
+	private String type;
 	
 	public Transfer() {
 		// TODO Auto-generated constructor stub
+	}
+	public Transfer(int in_w_id, int out_w_id, int p_id, int qty, String type) {
+		this.inWarehouseId = in_w_id;
+		this. outWarehouseId = out_w_id;
+		this.productId = p_id;
+		this. qty = qty;
+		this.type = type;
 	}
 	public int getId() {
 		return id;

@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubs.ubs.model.Goodin;
-import com.ubs.ubs.model.Goodout;
+
 import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
@@ -54,12 +53,8 @@ public class TransferController {
 		if(! out_inventory.decreaseQty(t.getQty()))
 			return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);		// http status 412
 		in_inventory.increaseQty(t.getQty());
-		Goodout g_out = new Goodout("transfer", t.getQty(), t.getProductId(), t.getOutWarehouseId());
-		Goodin g_in = new Goodin("transfer", t.getQty(), t.getProductId(), t.getInWarehouseId());
 		inventoryRepository.save(in_inventory);
 		inventoryRepository.save(out_inventory);
-		goodInRepository.save(g_in);
-		goodOutRepository.save(g_out);	
 		transferRepository.save(t);
 		return new ResponseEntity<Transfer>(t,HttpStatus.OK);
 	}

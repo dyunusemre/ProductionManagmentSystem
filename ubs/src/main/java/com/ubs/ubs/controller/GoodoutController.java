@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ubs.ubs.model.Goodin;
 import com.ubs.ubs.model.Goodout;
 import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
 import com.ubs.ubs.model.Warehouse;
-import com.ubs.ubs.repository.GoodinRepository;
 import com.ubs.ubs.repository.GoodoutRepository;
 import com.ubs.ubs.repository.InventoryRepository;
 import com.ubs.ubs.repository.ProductRepository;

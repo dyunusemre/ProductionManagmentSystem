@@ -10,9 +10,11 @@ public class Cancel {
 	private int id;
 	@Column(name = "t_id")
 	private int transactionId;
+	@Column(name = "t_type")
+	private String transactionType;
 	public Cancel() {
 		// TODO Auto-generated constructor stub
-	}
+	}	
 	public int getId() {
 		return id;
 	}
@@ -24,6 +26,26 @@ public class Cancel {
 	}
 	public void setTransactionId(int transactionId) {
 		this.transactionId = transactionId;
+	}
+	public String getTransactionType() {
+		return transactionType;
+	}
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
+	}
+	public String getTableName(String str) {
+		if(str.equals("goodin"))
+			return "Good_In";
+		else if(str.equals("goodout"))
+			return "Good_Out";
+		else if(str.equals("transfer"))
+			return "Transfer";
+		else if(str.equals("return"))
+			return "Handle_Return";
+		else if(str.equals("cancel"))
+			return "Cancel";
+		else 
+			return "Null";
 	}
 	
 }

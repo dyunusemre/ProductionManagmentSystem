@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,7 @@ public class TransferController {
 	@Autowired
 	TransferRepository transferRepository;
 	
+	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value="/transferGoods")
 	public @ResponseBody ResponseEntity<Transfer> transferGoods(@RequestBody Transfer t){
 		Warehouse in_warehouse = warehouseRepository.getOne(t.getInWarehouseId());
@@ -60,6 +62,7 @@ public class TransferController {
 		return new ResponseEntity<Transfer>(t,HttpStatus.OK);
 	}
 	
+	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value="/getAllTransfers")
 	public @ResponseBody List<Transfer> getAllTransfers(){
 		return transferRepository.findAll();

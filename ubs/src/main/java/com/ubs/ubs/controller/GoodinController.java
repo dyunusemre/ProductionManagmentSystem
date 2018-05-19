@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +37,7 @@ public class GoodinController {
 	@Autowired
 	GoodinRepository goodinRepository;
 	
-	
+	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value = "/insertGoods")
 	public @ResponseBody ResponseEntity<Goodin> setProduct(@RequestBody Goodin g) {
 		Product p = productRepository.findById(g.getP_id());
@@ -62,6 +63,8 @@ public class GoodinController {
 		}
 			
 	}
+	
+	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value = "/insertLogs")
 	public @ResponseBody ResponseEntity<List<Goodin>> showLogs(){
 		if(goodinRepository.count() == 0) {

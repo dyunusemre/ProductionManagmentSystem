@@ -3,6 +3,7 @@ package com.ubs.ubs.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,7 @@ public class ReturnController {
 	@Autowired
 	ReturnRepository returnRepository;
 	
+	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value="/sell_return")
 	public @ResponseBody ResponseEntity<Return> sellReturn(@RequestBody Return r){
 		// return edildi mi kontrol et. daha once edilmis ise direkt return etme return error don.
@@ -61,6 +63,7 @@ public class ReturnController {
 		return new ResponseEntity<Return>(r,HttpStatus.OK);	
 	}
 	
+	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value="/buy_return")
 	public @ResponseBody ResponseEntity<Return> buyReturn(@RequestBody Return r){
 		// return edildi mi kontrol et. daha once edilmis ise direkt return etme return error don.
@@ -81,6 +84,7 @@ public class ReturnController {
 		return new ResponseEntity<Return>(r,HttpStatus.OK);	
 	}
 	
+	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value="/transfer_return")
 	public ResponseEntity<Return> transfer_return(@RequestBody Return r){
 		// return edildi mi kontrol et. daha once edilmis ise direkt return etme return error don.

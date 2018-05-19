@@ -27,24 +27,28 @@ public class WarehouseController {
 	@Autowired 
 	WarehouseRepository warehouseRepository;
 	
+	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value="/findWarehouse",
 			params = {"id"})
 	public @ResponseBody Warehouse getWarehouseById(@RequestParam("id") int id){
 		return warehouseRepository.findById(id);
 	}
 	
+	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value="/insertWarehouse")
 	public @ResponseBody ResponseEntity<Warehouse> insertWarehouse(@RequestBody Warehouse w){
 		warehouseRepository.save(w);
 		return new ResponseEntity<Warehouse>(w,HttpStatus.OK);
 	}
 	
+	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value="/getAllWarehouses",
 				produces = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody List<Warehouse> getAllWarehouses(){
 		return warehouseRepository.findAll();
 	}
 	
+	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value="/deleteWarehouse",
 			params = {"id"})
 	public @ResponseBody ResponseEntity<Warehouse> deleteWarehouse(@RequestParam("id") int id){

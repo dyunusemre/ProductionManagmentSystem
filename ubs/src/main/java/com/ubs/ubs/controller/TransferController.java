@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +18,14 @@ import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
 import com.ubs.ubs.model.Transfer;
+import com.ubs.ubs.model.TransferView;
 import com.ubs.ubs.model.Warehouse;
 import com.ubs.ubs.repository.GoodinRepository;
 import com.ubs.ubs.repository.GoodoutRepository;
 import com.ubs.ubs.repository.InventoryRepository;
 import com.ubs.ubs.repository.ProductRepository;
 import com.ubs.ubs.repository.TransferRepository;
+import com.ubs.ubs.repository.TransferViewRepository;
 import com.ubs.ubs.repository.WarehouseRepository;
 
 @RestController
@@ -40,10 +43,13 @@ public class TransferController {
 	GoodoutRepository goodOutRepository;
 	@Autowired
 	TransferRepository transferRepository;
+	@Autowired
+	TransferViewRepository transferViewRepository;
 	
 	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value="/transferGoods")
 	public @ResponseBody ResponseEntity<Transfer> transferGoods(@RequestBody Transfer t){
+		t.setType("transfer");
 		Warehouse in_warehouse = warehouseRepository.getOne(t.getInWarehouseId());
 		Warehouse out_warehouse = warehouseRepository.getOne(t.getOutWarehouseId());
 		Product out_product = productRepository.getOne(t.getProductId());
@@ -63,9 +69,9 @@ public class TransferController {
 	}
 	
 	@CrossOrigin(allowCredentials="true")
-	@PostMapping(value="/getAllTransfers")
-	public @ResponseBody List<Transfer> getAllTransfers(){
-		return transferRepository.findAll();
+	@GetMapping(value="/getAllTransfers")
+	public @ResponseBody List<TransferView> getAllTransfers(){
+		return transferViewRepository.findAll();
 	}
 	
 	

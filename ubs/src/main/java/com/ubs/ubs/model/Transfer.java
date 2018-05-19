@@ -12,6 +12,12 @@ public class Transfer {
 	private int inWarehouseId;
 	@Column(name = "out_w_id")
 	private int outWarehouseId;
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	@Column(name = "p_id")
 	private int productId;
 	@Column(name = "qty")

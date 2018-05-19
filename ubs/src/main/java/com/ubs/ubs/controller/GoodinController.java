@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ubs.ubs.model.Goodin;
+import com.ubs.ubs.model.GoodinView;
 import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
 import com.ubs.ubs.model.Warehouse;
 import com.ubs.ubs.repository.GoodinRepository;
+import com.ubs.ubs.repository.GoodinViewRepository;
 import com.ubs.ubs.repository.InventoryRepository;
 import com.ubs.ubs.repository.ProductRepository;
 import com.ubs.ubs.repository.WarehouseRepository;
@@ -36,6 +38,8 @@ public class GoodinController {
 	InventoryRepository inventoryRepository;
 	@Autowired
 	GoodinRepository goodinRepository;
+	@Autowired
+	GoodinViewRepository goodinViewRepository;
 	
 	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value = "/insertGoods")
@@ -66,12 +70,13 @@ public class GoodinController {
 	
 	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value = "/insertLogs")
-	public @ResponseBody ResponseEntity<List<Goodin>> showLogs(){
-		if(goodinRepository.count() == 0) {
+	public @ResponseBody ResponseEntity<List<GoodinView>> showLogs(){
+		if(goodinViewRepository.count() == 0) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			
 		}else {
-			return new ResponseEntity<List<Goodin>>(goodinRepository.findAll(),HttpStatus.OK);
+			return new ResponseEntity<List<GoodinView>>(goodinViewRepository.findAll(),HttpStatus.OK);
 		}
 	}
+
 }

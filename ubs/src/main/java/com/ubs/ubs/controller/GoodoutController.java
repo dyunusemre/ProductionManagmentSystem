@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ubs.ubs.model.GoodinView;
 import com.ubs.ubs.model.Goodout;
+import com.ubs.ubs.model.GoodoutView;
 import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
 import com.ubs.ubs.model.Warehouse;
 import com.ubs.ubs.repository.GoodoutRepository;
+import com.ubs.ubs.repository.GoodoutViewRepository;
 import com.ubs.ubs.repository.InventoryRepository;
 import com.ubs.ubs.repository.ProductRepository;
 import com.ubs.ubs.repository.WarehouseRepository;
@@ -35,6 +38,8 @@ public class GoodoutController {
 	InventoryRepository inventoryRepository;
 	@Autowired
 	GoodoutRepository goodoutRepository;
+	@Autowired 
+	GoodoutViewRepository goodoutViewRepository;
 	
 	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value = "/deleteGoods")
@@ -67,13 +72,13 @@ public class GoodoutController {
 	}
 	
 	@CrossOrigin(allowCredentials="true")
-	@GetMapping(value = "/insertLogs")
-	public @ResponseBody ResponseEntity<List<Goodout>> showLogs(){
-		if(goodoutRepository.count() == 0) {
+	@GetMapping(value = "/deleteLogs")
+	public @ResponseBody ResponseEntity<List<GoodoutView>> showLogs(){
+		if(goodoutViewRepository.count() == 0) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			
 		}else {
-			return new ResponseEntity<List<Goodout>>(goodoutRepository.findAll(),HttpStatus.OK);
+			return new ResponseEntity<>(goodoutViewRepository.findAll(),HttpStatus.OK);
 		}
 	}
 }

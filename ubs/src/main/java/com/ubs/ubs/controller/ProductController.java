@@ -24,23 +24,26 @@ public class ProductController {
 	@Autowired
 	InventoryRepository inventoryRepository;
 	
+	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value = "/findProduct",
 				params = {"id"})
 	public @ResponseBody Product getProductById(@RequestParam("id") int id) {
 		return productRepository.findById(id);
 	}
 	
+	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value = "/insertProduct")
 	public @ResponseBody ResponseEntity<Product> setProduct(@RequestBody Product p) {
 		productRepository.save(p);
 		return new ResponseEntity<Product>(p,HttpStatus.OK);
 	}
-	
+	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value="/getAllProducts")
 	public @ResponseBody List<Product> getAllProducts() {
 		return productRepository.findAll();
 	}
 	
+	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value="/deleteProduct",
 			params = {"id"})
 	public @ResponseBody ResponseEntity<Product> deleteProductId(@RequestParam("id") int id) {

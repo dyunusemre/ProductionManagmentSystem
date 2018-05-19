@@ -59,7 +59,7 @@ public class Warehouse implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "primaryKey.warehouse",
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "primaryKey.warehouse",
 			cascade = CascadeType.ALL)
 	
 	public List<Inventory> getInventory() {

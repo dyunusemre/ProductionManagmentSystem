@@ -18,7 +18,6 @@ public class InventoryId implements Serializable {
 	public InventoryId() {
 	
 	}
-	
 	public InventoryId(Product p, Warehouse w) {
 		this.product = p;
 		this.warehouse = w;

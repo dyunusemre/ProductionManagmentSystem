@@ -54,7 +54,7 @@ public class Product implements Serializable{
 		this.name = name;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "primaryKey.product",
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "primaryKey.product",
 			cascade = CascadeType.ALL)
 	public List<Inventory> getInventory() {
 		return inventory;

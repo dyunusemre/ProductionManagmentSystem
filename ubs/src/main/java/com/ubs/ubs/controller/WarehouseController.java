@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -27,24 +28,24 @@ public class WarehouseController {
 	
 	@GetMapping(value="/findWarehouse",
 			params = {"id"})
-	public Warehouse getWarehouseById(@RequestParam("id") int id){
+	public @ResponseBody Warehouse getWarehouseById(@RequestParam("id") int id){
 		return warehouseRepository.findById(id);
 	}
 	
 	@PostMapping(value="/insertWarehouse")
-	public ResponseEntity<Warehouse> insertWarehouse(@RequestBody Warehouse w){
+	public @ResponseBody ResponseEntity<Warehouse> insertWarehouse(@RequestBody Warehouse w){
 		warehouseRepository.save(w);
 		return new ResponseEntity<Warehouse>(w,HttpStatus.OK);
 	}
-	@CrossOrigin
+	
 	@GetMapping(value="/getAllWarehouses")
-	public List<Warehouse> getAllWarehouses(){
+	public @ResponseBody List<Warehouse> getAllWarehouses(){
 		return warehouseRepository.findAll();
 	}
 	
 	@GetMapping(value="/deleteWarehouse",
 			params = {"id"})
-	public ResponseEntity<Warehouse> deleteWarehouse(@RequestParam("id") int id){
+	public @ResponseBody ResponseEntity<Warehouse> deleteWarehouse(@RequestParam("id") int id){
 		if(warehouseRepository.existsById(id)) {
 			Warehouse w = new Warehouse(warehouseRepository.getOne(id));
 			warehouseRepository.deleteById(id);

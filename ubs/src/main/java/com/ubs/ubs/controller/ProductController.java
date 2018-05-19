@@ -26,24 +26,24 @@ public class ProductController {
 	
 	@GetMapping(value = "/findProduct",
 				params = {"id"})
-	public Product getProductById(@RequestParam("id") int id) {
+	public @ResponseBody Product getProductById(@RequestParam("id") int id) {
 		return productRepository.findById(id);
 	}
 	
 	@PostMapping(value = "/insertProduct")
-	public  ResponseEntity<Product> setProduct(@RequestBody Product p) {
+	public @ResponseBody ResponseEntity<Product> setProduct(@RequestBody Product p) {
 		productRepository.save(p);
 		return new ResponseEntity<Product>(p,HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/getAllProducts")
-	public List<Product> getAllProducts() {
+	public @ResponseBody List<Product> getAllProducts() {
 		return productRepository.findAll();
 	}
 	
 	@GetMapping(value="/deleteProduct",
 			params = {"id"})
-	public ResponseEntity<Product> deleteProductId(@RequestParam("id") int id) {
+	public @ResponseBody ResponseEntity<Product> deleteProductId(@RequestParam("id") int id) {
 		if(productRepository.existsById(id)){
 			Product p = new Product(productRepository.getOne(id));
 			productRepository.deleteById(id);

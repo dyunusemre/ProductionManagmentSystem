@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -40,7 +41,7 @@ public class TransferController {
 	TransferRepository transferRepository;
 	
 	@PostMapping(value="/transferGoods")
-	public ResponseEntity<Transfer> transferGoods(@RequestBody Transfer t){
+	public @ResponseBody ResponseEntity<Transfer> transferGoods(@RequestBody Transfer t){
 		Warehouse in_warehouse = warehouseRepository.getOne(t.getInWarehouseId());
 		Warehouse out_warehouse = warehouseRepository.getOne(t.getOutWarehouseId());
 		Product out_product = productRepository.getOne(t.getProductId());
@@ -60,7 +61,7 @@ public class TransferController {
 	}
 	
 	@PostMapping(value="/getAllTransfers")
-	public List<Transfer> getAllTransfers(){
+	public @ResponseBody List<Transfer> getAllTransfers(){
 		return transferRepository.findAll();
 	}
 	

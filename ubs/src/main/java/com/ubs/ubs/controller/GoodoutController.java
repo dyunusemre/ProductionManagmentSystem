@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ubs.ubs.model.Goodout;
@@ -36,7 +37,7 @@ public class GoodoutController {
 	
 	
 	@PostMapping(value = "/deleteGoods")
-	public  ResponseEntity<Goodout> setProduct(@RequestBody Goodout g) {
+	public @ResponseBody ResponseEntity<Goodout> setProduct(@RequestBody Goodout g) {
 		Product p = productRepository.findById(g.getP_id());
 		Warehouse w = warehouseRepository.findById(g.getW_id());
 		System.out.println(org.hibernate.Version.getVersionString());
@@ -64,7 +65,7 @@ public class GoodoutController {
 			
 	}
 	@GetMapping(value = "/insertLogs")
-	public ResponseEntity<List<Goodout>> showLogs(){
+	public @ResponseBody ResponseEntity<List<Goodout>> showLogs(){
 		if(goodoutRepository.count() == 0) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			

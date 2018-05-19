@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ubs.ubs.model.Goodin;
@@ -43,7 +44,7 @@ public class ReturnController {
 	ReturnRepository returnRepository;
 	
 	@PostMapping(value="/sell_return")
-	public ResponseEntity<Return> sellReturn(@RequestBody Return r){
+	public @ResponseBody ResponseEntity<Return> sellReturn(@RequestBody Return r){
 		// return edildi mi kontrol et. daha once edilmis ise direkt return etme return error don.
 		Goodout g_out = goodoutRepository.getOne(r.getTransactionId());
 		int w_id = g_out.getW_id();
@@ -61,7 +62,7 @@ public class ReturnController {
 	}
 	
 	@PostMapping(value="/buy_return")
-	public ResponseEntity<Return> buyReturn(@RequestBody Return r){
+	public @ResponseBody ResponseEntity<Return> buyReturn(@RequestBody Return r){
 		// return edildi mi kontrol et. daha once edilmis ise direkt return etme return error don.
 		Goodin g_in = goodinRepository.getOne(r.getTransactionId());
 		int w_id = g_in.getW_id();

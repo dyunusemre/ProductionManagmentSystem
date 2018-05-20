@@ -48,6 +48,7 @@ public class ReturnController {
 	@PostMapping(value="/sell_return")
 	public @ResponseBody ResponseEntity<Return> sellReturn(@RequestBody Return r){
 		// return edildi mi kontrol et. daha once edilmis ise direkt return etme return error don.
+		r.setTransactionType("sell");
 		Goodout g_out = goodoutRepository.getOne(r.getTransactionId());
 		int w_id = g_out.getW_id();
 		int p_id = g_out.getP_id();
@@ -67,6 +68,7 @@ public class ReturnController {
 	@PostMapping(value="/buy_return")
 	public @ResponseBody ResponseEntity<Return> buyReturn(@RequestBody Return r){
 		// return edildi mi kontrol et. daha once edilmis ise direkt return etme return error don.
+		r.setTransactionType("buy");
 		Goodin g_in = goodinRepository.getOne(r.getTransactionId());
 		int w_id = g_in.getW_id();
 		int p_id = g_in.getP_id();
@@ -88,6 +90,7 @@ public class ReturnController {
 	@PostMapping(value="/transfer_return")
 	public ResponseEntity<Return> transfer_return(@RequestBody Return r){
 		// return edildi mi kontrol et. daha once edilmis ise direkt return etme return error don.
+		r.setTransactionType("transfer");
 		Transfer t = transferRepository.getOne(r.getTransactionId());
 		int in_w_id = t.getInWarehouseId();
 		int out_w_id = t.getOutWarehouseId();

@@ -15,6 +15,10 @@ public class Cancel {
 	public Cancel() {
 		// TODO Auto-generated constructor stub
 	}	
+	public Cancel(int t_id, String t_type) {
+		this.setTransactionId(t_id);
+		this.setTransactionType(t_type);
+	}
 	public int getId() {
 		return id;
 	}

@@ -19,11 +19,13 @@ import com.ubs.ubs.model.GoodoutView;
 import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
+import com.ubs.ubs.model.RecentTransaction;
 import com.ubs.ubs.model.Warehouse;
 import com.ubs.ubs.repository.GoodoutRepository;
 import com.ubs.ubs.repository.GoodoutViewRepository;
 import com.ubs.ubs.repository.InventoryRepository;
 import com.ubs.ubs.repository.ProductRepository;
+import com.ubs.ubs.repository.RecentTransactionsRepository;
 import com.ubs.ubs.repository.WarehouseRepository;
 
 @RestController
@@ -40,6 +42,8 @@ public class GoodoutController {
 	GoodoutRepository goodoutRepository;
 	@Autowired 
 	GoodoutViewRepository goodoutViewRepository;
+	@Autowired
+	RecentTransactionsRepository recentRepository;
 	
 	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value = "/deleteGoods")
@@ -59,6 +63,8 @@ public class GoodoutController {
 				i.setQty(i2.getQty() - g.getQty());
 				inventoryRepository.save(i);
 				goodoutRepository.save(g);		
+				RecentTransaction rt = new RecentTransaction(g.getType(), g.getId());
+				recentRepository.save(rt);
 				return new ResponseEntity<Goodout>(g,HttpStatus.OK);
 			}
 			else{

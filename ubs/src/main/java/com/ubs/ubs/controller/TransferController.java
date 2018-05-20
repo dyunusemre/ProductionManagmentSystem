@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
+import com.ubs.ubs.model.RecentTransaction;
 import com.ubs.ubs.model.Transfer;
 import com.ubs.ubs.model.TransferView;
 import com.ubs.ubs.model.Warehouse;
@@ -24,6 +25,7 @@ import com.ubs.ubs.repository.GoodinRepository;
 import com.ubs.ubs.repository.GoodoutRepository;
 import com.ubs.ubs.repository.InventoryRepository;
 import com.ubs.ubs.repository.ProductRepository;
+import com.ubs.ubs.repository.RecentTransactionsRepository;
 import com.ubs.ubs.repository.TransferRepository;
 import com.ubs.ubs.repository.TransferViewRepository;
 import com.ubs.ubs.repository.WarehouseRepository;
@@ -45,6 +47,8 @@ public class TransferController {
 	TransferRepository transferRepository;
 	@Autowired
 	TransferViewRepository transferViewRepository;
+	@Autowired
+	RecentTransactionsRepository recentRepository;
 	
 	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value="/transferGoods")
@@ -65,6 +69,8 @@ public class TransferController {
 		inventoryRepository.save(in_inventory);
 		inventoryRepository.save(out_inventory);
 		transferRepository.save(t);
+		RecentTransaction rt = new RecentTransaction(t.getType(), t.getId());
+		recentRepository.save(rt);
 		return new ResponseEntity<Transfer>(t,HttpStatus.OK);
 	}
 	

@@ -11,6 +11,9 @@ public class RecentTransaction {
 	@NotNull
 	@Column(name = "t_id")
 	int t_id;
+	public RecentTransaction() {
+		
+	}
 	public RecentTransaction(String id, int t_id) {
 		this.setId(id);
 		this.setT_id(t_id);

@@ -95,6 +95,7 @@ public class CancelController {
 				inventoryRepository.save(out_inventory);
 				Cancel c = new Cancel(t.getId(), type);
 				cancelRepository.save(c);
+				recentRepository.deleteById(type);
 				transferRepository.deleteById(t.getId());
 				return new ResponseEntity<Cancel>(c,HttpStatus.OK);
 			}

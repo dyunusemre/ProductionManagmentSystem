@@ -56,7 +56,12 @@ public class ProductController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
-
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value = "/products",
+				params = {"id"})
+	public @ResponseBody List<Product> getProducts(@RequestParam("id") int id) {
+		return inventoryRepository.findByPrimaryKeyProductId(id);
+	}
 	
 	
 }

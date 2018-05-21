@@ -20,12 +20,14 @@ import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
 import com.ubs.ubs.model.RecentTransaction;
+import com.ubs.ubs.model.ReturnGoView;
 import com.ubs.ubs.model.Warehouse;
 import com.ubs.ubs.repository.GoodoutRepository;
 import com.ubs.ubs.repository.GoodoutViewRepository;
 import com.ubs.ubs.repository.InventoryRepository;
 import com.ubs.ubs.repository.ProductRepository;
 import com.ubs.ubs.repository.RecentTransactionsRepository;
+import com.ubs.ubs.repository.ReturnGoViewRepository;
 import com.ubs.ubs.repository.WarehouseRepository;
 
 @RestController
@@ -44,6 +46,8 @@ public class GoodoutController {
 	GoodoutViewRepository goodoutViewRepository;
 	@Autowired
 	RecentTransactionsRepository recentRepository;
+	@Autowired
+	ReturnGoViewRepository returnGoViewRepository;
 	
 	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value = "/deleteGoods")
@@ -86,5 +90,10 @@ public class GoodoutController {
 		}else {
 			return new ResponseEntity<>(goodoutViewRepository.findAll(),HttpStatus.OK);
 		}
+	}
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value = "/returnGo")
+	public @ResponseBody List<ReturnGoView> goodOutReturn(){
+		return returnGoViewRepository.findAll();
 	}
 }

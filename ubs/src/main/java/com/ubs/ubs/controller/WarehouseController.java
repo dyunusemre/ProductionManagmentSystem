@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.ubs.ubs.model.Inventory;
+import com.ubs.ubs.model.InventoryView;
+import com.ubs.ubs.model.Product;
 import com.ubs.ubs.model.Warehouse;
+import com.ubs.ubs.repository.InventoryViewRepository;
 import com.ubs.ubs.repository.WarehouseRepository;
 
 
@@ -26,6 +29,8 @@ import com.ubs.ubs.repository.WarehouseRepository;
 public class WarehouseController {
 	@Autowired 
 	WarehouseRepository warehouseRepository;
+	@Autowired
+	InventoryViewRepository inventoryViewRepository;
 	
 	@CrossOrigin(allowCredentials="true")
 	@GetMapping(value="/findWarehouse",
@@ -49,18 +54,12 @@ public class WarehouseController {
 	}
 	
 	@CrossOrigin(allowCredentials="true")
-	@GetMapping(value="/deleteWarehouse",
-			params = {"id"})
-	public @ResponseBody ResponseEntity<Warehouse> deleteWarehouse(@RequestParam("id") int id){
-		if(warehouseRepository.existsById(id)) {
-			Warehouse w = new Warehouse(warehouseRepository.getOne(id));
-			warehouseRepository.deleteById(id);
-			return new ResponseEntity<Warehouse>(w,HttpStatus.OK);
-		}
-		else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
+	@GetMapping(value="/inventory",
+				produces = {MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody List<InventoryView> getStockCard(){
+		return inventoryViewRepository.findAll();
 	}
+	
+
 
 }

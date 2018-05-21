@@ -18,6 +18,7 @@ import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
 import com.ubs.ubs.model.RecentTransaction;
+import com.ubs.ubs.model.ReturnTransferView;
 import com.ubs.ubs.model.Transfer;
 import com.ubs.ubs.model.TransferView;
 import com.ubs.ubs.model.Warehouse;
@@ -26,6 +27,7 @@ import com.ubs.ubs.repository.GoodoutRepository;
 import com.ubs.ubs.repository.InventoryRepository;
 import com.ubs.ubs.repository.ProductRepository;
 import com.ubs.ubs.repository.RecentTransactionsRepository;
+import com.ubs.ubs.repository.ReturnTransferViewRepository;
 import com.ubs.ubs.repository.TransferRepository;
 import com.ubs.ubs.repository.TransferViewRepository;
 import com.ubs.ubs.repository.WarehouseRepository;
@@ -49,6 +51,8 @@ public class TransferController {
 	TransferViewRepository transferViewRepository;
 	@Autowired
 	RecentTransactionsRepository recentRepository;
+	@Autowired
+	ReturnTransferViewRepository returnTransferViewRepository;
 	
 	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value="/transferGoods")
@@ -79,6 +83,13 @@ public class TransferController {
 	public @ResponseBody List<TransferView> getAllTransfers(){
 		return transferViewRepository.findAll();
 	}
+	
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value="/getAllReturnTransfers")
+	public @ResponseBody List<ReturnTransferView> getAllReturnTransfers() {
+		return returnTransferViewRepository.findAll();
+	}
+	
 	
 	
 }

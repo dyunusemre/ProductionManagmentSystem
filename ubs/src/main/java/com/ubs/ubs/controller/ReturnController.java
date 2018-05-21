@@ -88,7 +88,7 @@ public class ReturnController {
 	
 	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value="/transfer_return")
-	public ResponseEntity<Return> transfer_return(@RequestBody Return r){
+	public @ResponseBody ResponseEntity<Return> transfer_return(@RequestBody Return r){
 		// return edildi mi kontrol et. daha once edilmis ise direkt return etme return error don.
 		r.setTransactionType("transfer");
 		Transfer t = transferRepository.getOne(r.getTransactionId());
@@ -110,6 +110,7 @@ public class ReturnController {
 		inventoryRepository.save(in_inventory);
 		inventoryRepository.save(out_inventory);
 		returnRepository.save(r);
+		System.out.println("here");
 		return new ResponseEntity<Return>(r, HttpStatus.OK);
 	}
 }

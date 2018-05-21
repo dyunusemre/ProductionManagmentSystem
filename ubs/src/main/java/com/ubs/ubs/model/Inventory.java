@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -43,6 +44,7 @@ public class Inventory implements Serializable{
 		this.primaryKey = primaryKey;
 	}
 	@Transient
+	@JsonIgnore
 	public Product getProduct() {
 		return getPrimaryKey().getProduct();
 	}
@@ -50,6 +52,7 @@ public class Inventory implements Serializable{
 		getPrimaryKey().setProduct(product);
 	}
 	@Transient
+	@JsonIgnore
 	public Warehouse getWarehouse() {
 		return getPrimaryKey().getWarehouse();
 	}

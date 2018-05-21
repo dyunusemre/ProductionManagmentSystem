@@ -19,12 +19,16 @@ import com.ubs.ubs.model.Inventory;
 import com.ubs.ubs.model.InventoryId;
 import com.ubs.ubs.model.Product;
 import com.ubs.ubs.model.RecentTransaction;
+import com.ubs.ubs.model.ReturnGiView;
+import com.ubs.ubs.model.ReturnGoView;
 import com.ubs.ubs.model.Warehouse;
 import com.ubs.ubs.repository.GoodinRepository;
 import com.ubs.ubs.repository.GoodinViewRepository;
 import com.ubs.ubs.repository.InventoryRepository;
 import com.ubs.ubs.repository.ProductRepository;
 import com.ubs.ubs.repository.RecentTransactionsRepository;
+import com.ubs.ubs.repository.ReturnGiViewRepository;
+import com.ubs.ubs.repository.ReturnGoViewRepository;
 import com.ubs.ubs.repository.WarehouseRepository;
 
 
@@ -44,6 +48,9 @@ public class GoodinController {
 	GoodinViewRepository goodinViewRepository;
 	@Autowired
 	RecentTransactionsRepository recentRepository;
+	@Autowired
+	ReturnGiViewRepository returnGiViewRepository;
+
 	
 	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value = "/insertGoods")
@@ -83,5 +90,11 @@ public class GoodinController {
 			return new ResponseEntity<List<GoodinView>>(goodinViewRepository.findAll(),HttpStatus.OK);
 		}
 	}
+	@CrossOrigin(allowCredentials="true")
+	@GetMapping(value = "/returnGi")
+	public @ResponseBody List<ReturnGiView> goodOutReturn(){
+		return returnGiViewRepository.findAll();
+	}
+	
 
 }

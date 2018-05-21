@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ubs.ubs.model.Cancel;
@@ -50,15 +51,15 @@ public class CancelController {
 	
 	@CrossOrigin(allowCredentials="true")
 	@PostMapping(value="/cancelTransaction")
-	public ResponseEntity<Cancel> cancelTransaction(@RequestBody RecentTransaction rt){
+	public @ResponseBody ResponseEntity<Cancel> cancelTransaction(@RequestBody RecentTransaction rt){
 		String type = rt.getId();
 		int t_id = rt.getT_id();
-		if(type.equals("buy")) {
+		if(type.equals("buy") || type.equals("production")) {
 			Goodin g = goodinRepository.getOne(t_id);
 			Product p = productRepository.getOne(g.getP_id());
 			Warehouse w = warehouseRepository.getOne(g.getW_id());
 			Inventory i1 = inventoryRepository.getOne(new InventoryId(p, w));
-			if(i1.decreaseQty(g.getQty())) {
+			if(!i1.decreaseQty(g.getQty())) {
 				Cancel c = new Cancel(g.getId(), type);
 				cancelRepository.save(c);				
 				recentRepository.deleteById(type);
@@ -70,7 +71,7 @@ public class CancelController {
 			}
 			
 		}
-		else if(type.equals("sell")) {
+		else if(type.equals("sell") || type.equals("consumption")) {
 			Goodout g = goodoutRepository.getOne(t_id);
 			Product p = productRepository.getOne(g.getP_id());
 			Warehouse w = warehouseRepository.getOne(g.getW_id());
@@ -89,7 +90,7 @@ public class CancelController {
 			Product out_product = productRepository.getOne(t.getProductId());
 			Inventory in_inventory = inventoryRepository.getOne(new InventoryId(out_product, in_warehouse));
 			Inventory out_inventory = inventoryRepository.getOne(new InventoryId(out_product, out_warehouse));
-			if(in_inventory.decreaseQty(t.getQty())) {
+			if(!in_inventory.decreaseQty(t.getQty())) {
 				out_inventory.increaseQty(t.getQty());
 				inventoryRepository.save(in_inventory);
 				inventoryRepository.save(out_inventory);
